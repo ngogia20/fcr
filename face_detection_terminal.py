@@ -63,9 +63,9 @@ mqttc.connect(host=broker, port=1883, keepalive=60)
 mqttc.loop_start()
 
 # Credentials for accessing the COS service
-access_key = '' # Put your COS access key in here
-secret_key = '' # Put your COS secret key in here
-bucket = '' #  Put your COS bucket name in here
+access_key = 'EjgstbvJr21tN1YJJBjO' # Put your COS access key in here
+secret_key = 't6XOhuPPwH2agsTSWjNquX3Ks0EvmplAxqkA90HM' # Put your COS secret key in here
+bucket = 'testnik' #  Put your COS bucket name in here
 
 s3client = boto.connect_s3(
   aws_access_key_id = access_key,
