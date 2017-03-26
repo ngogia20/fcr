@@ -37,12 +37,12 @@ def on_message(client, userdata, msg):
     print("Publish message received from server")
 
 # Set the variables for connecting to the IoT MQTT service
-macAddress="123456789012" # put in the Mac address of your Laptop here
+macAddress="nikeshlaptop20" # put in the Mac address of your Laptop here
 print("MAC address: " + macAddress)
 topic = "iot-2/evt/status/fmt/json"
 username = "use-token-auth"
-password = "" # put in your Watson IoT service auth-token
-organization = "" # put in your Watson IoT service org_id
+password = "uoaKW-qIUmcBxGw9rK" # put in your Watson IoT service auth-token
+organization = "q9h8g4" # put in your Watson IoT service org_id
 deviceType = "" # Change to whatever you defined in Watson IoT service
 
 # Creating the client connection
