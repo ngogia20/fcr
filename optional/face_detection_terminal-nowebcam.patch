@@ -1,0 +1,52 @@
+--- face_detection_terminal.py	2017-02-24 16:14:56.856445348 +0100
++++ optional/face_detection_terminal-nowebcam.py	2017-02-24 16:22:33.496438729 +0100
+@@ -20,6 +20,7 @@
+ import time
+ import json
+ import subprocess
++import random
+ # For simplicity we do not use SSL/TLS for the MQTT connection as it
+ # needs server and CA certificate to be set up plus requires TLS1.2 support
+ # which is not provided out-of-box for Ubuntu 14.04
+@@ -28,6 +29,18 @@
+ import paho.mqtt.client as mqtt
+ from boto.s3.key import Key
+ 
++images = [
++'image01.jpg',
++'image02.jpg',
++'image03.jpg',
++'image04.jpg',
++'image05.jpg',
++'image06.jpg',
++'image07.jpg',
++'image08.jpg',
++'image09.jpg',
++'image10.jpg' ]
++
+ # The callback for when a connection is established with the MQTT server.
+ def on_connect(client, userdata, flags, rc):
+     print("Connected with result code " + str(rc))
+@@ -78,19 +91,14 @@
+ try:
+     # Not using the loop over here to not exhaust the free API calls/day limit
+     #while True:
+-        print "Taking photo:"
+-        # Put a temporary path on your local machine over here - for now, the filename
+-        # needs to be campic.jpg
+-        photo_taken = subprocess.check_output(['avconv', '-f', 'video4linux2',
+-                                               '-s', '640x480', '-i', '/dev/video0',
+-                                               '-ss', '0:0:2', '-frames', '1', '-y',
+-                                               '/tmp/campic.jpg'])
++        print "Taking photo (simulated):"
++        imagefile = images[random.randint(0,9)]
+         print "Uploading file:"
+         # Put a temporary path on your local machine over here - for now, the filename
+         # needs to be campic.jpg
+-        testfile = open('/tmp/campic.jpg')
+         # currently picture path is hardcoded and will be overwritten with each PUT
+         # to save Object Storage space
++        testfile = open('/home/localuser/' + imagefile)
+         b = s3client.get_bucket(bucket)
+         k = Key(b)
+         k.key = 'campic.jpg'

@@ -1,0 +1,33 @@
+--- face_detection_terminal.py	2017-02-24 16:14:56.856445348 +0100
++++ optional/face_detection_terminal_macOS.py	2017-02-24 16:19:35.460441310 +0100
+@@ -19,6 +19,7 @@
+ #
+ import time
+ import json
++import os
+ import subprocess
+ # For simplicity we do not use SSL/TLS for the MQTT connection as it
+ # needs server and CA certificate to be set up plus requires TLS1.2 support
+@@ -71,7 +72,7 @@
+   aws_access_key_id = access_key,
+   aws_secret_access_key = secret_key,
+   host = 's3-api.us-geo.objectstorage.softlayer.net',
+-  #is_secure = False,
++  is_secure = False,
+   calling_format = boto.s3.connection.OrdinaryCallingFormat(),
+ )
+ 
+@@ -81,10 +82,9 @@
+         print "Taking photo:"
+         # Put a temporary path on your local machine over here - for now, the filename
+         # needs to be campic.jpg
+-        photo_taken = subprocess.check_output(['avconv', '-f', 'video4linux2',
+-                                               '-s', '640x480', '-i', '/dev/video0',
+-                                               '-ss', '0:0:2', '-frames', '1', '-y',
+-                                               '/tmp/campic.jpg'])
++        # Download and install the imagesnap tool. We let the picture settle for two
++        # seconds, otherwise the camera image will be way too dark.
++        photo_taken = subprocess.check_output(['imagesnap', '-w', '2', '/tmp/campic.jpg'])
+         print "Uploading file:"
+         # Put a temporary path on your local machine over here - for now, the filename
+         # needs to be campic.jpg
